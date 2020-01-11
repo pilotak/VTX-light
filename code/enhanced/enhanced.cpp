@@ -85,6 +85,7 @@ void setup() {
 
     analogRead(aPot); // fake read
     analogRead(aVcc); // fake read
+
     delay(5);
 
     pot = map(analogRead(aPot), 0, 1023, POT_MIN_V, POT_MAX_V);
