@@ -3,20 +3,29 @@
 #include <avr/wdt.h>
 #include "MovingAverage.h"
 
-#ifndef cbi
-    #define cbi(sfr, bit) (_SFR_BYTE(sfr) &= ~_BV(bit))
-#endif
-#ifndef sbi
-    #define sbi(sfr, bit) (_SFR_BYTE(sfr) |= _BV(bit))
-#endif
-
 #define POT_MIN_V 1100 // volts*100
 #define POT_MAX_V 1800 // volts*100
 #define PWM_MIN   12
 #define PWM_MAX   255
 #define VCC_MAX   2032 // volts*100
 
-MovingAverage <unsigned short, 16> analogReading;
+// This is the COUNTERCLOCKWISE pin mapping
+
+const int button1Pin = 4;  // PA6
+const int button2Pin = 0;  // PB0
+
+const int aVcc = A0;
+const int aPot = A1;
+
+const int mainLight = 5;  // PA5
+const int hipwrLed  = 1;  // PB1
+
+const int redLight   = 2;  // PB2
+const int greenLight = 3;  // PA7
+const int blueLight  = 6;  // PA4
+
+const int swapBlinker = 8;  // PA2
+const int flasher     = 7;  // PA3
 
 enum modes {
     NORMAL,
@@ -33,30 +42,16 @@ enum blinker_modes {
     BLINK
 };
 
-const int button1Pin = PA6;
-const int button2Pin = PB0;
-
-const int aVcc = PA0;
-const int aPot = PA1;
-
-const int mainLight = PA5;
-const int hipwrLed  = PA1;
-
-const int redLight   = PB3;
-const int greenLight = PA7;
-const int blueLight  = PA4;
-
-const int swapBlinker = PA2;
-const int flasher     = PA3;
+MovingAverage <unsigned short, 16> analogReading;
 
 modes mode            = NORMAL;
 modes mode_prev       = NORMAL;
 fade_modes fade_mode  = UP;
 blinker_modes blinker = OFF;
 
-bool hipwr             = false;
-byte current_pwm       = PWM_MAX;
-unsigned short pot     = 0;
+bool hipwr                = false;
+byte current_pwm          = PWM_MAX;
+unsigned short pot        = 0;
 unsigned long debounce[2] = {0, 0};
 
 void setup() {
@@ -173,12 +168,12 @@ void loop() {
         if (debounce[1] == ULONG_MAX) {
             blinker = BLINK;
 
-        } else if (debounce[0] == 0) {
+        } else if (debounce[1] == 0) {
             blinker = OFF;
         }
     }
 
-    if (counter % 200 == 0) {  // 200ms
+    if (counter % 100 == 0) {  // 100ms
         wdt_reset();
     }
 
