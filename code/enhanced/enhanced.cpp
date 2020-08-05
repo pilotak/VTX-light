@@ -123,8 +123,10 @@ void loop() {
         analogWrite(mainLight, current_pwm);
 
         digitalWrite(redLight, HIGH);
-        digitalWrite(greenLight, HIGH);
-        // digitalWrite(blueLight, HIGHT);
+        //analogWrite(redLight, 75);
+        //digitalWrite(greenLight, HIGH);
+        analogWrite(greenLight, 7); // 125
+        //digitalWrite(blueLight, HIGH);
 
         if (mode == FADE) {
             if (fade_mode == UP) {
