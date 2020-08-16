@@ -1,5 +1,6 @@
 # VTX main light enhancements
-[![Build Status](https://travis-ci.org/pilotak/VTX-light.svg?branch=master)](https://travis-ci.org/pilotak/VTX-light)
+[![Build status](https://github.com/pilotak/VTX-light/workflows/build/badge.svg)](https://github.com/pilotak/VTX-light/actions)
+
 
 ## Features:
 Basic:
