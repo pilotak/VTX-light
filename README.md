@@ -1,5 +1,6 @@
 # VTX main light enhancements
 [![Build status](https://github.com/pilotak/VTX-light/workflows/build/badge.svg)](https://github.com/pilotak/VTX-light/actions)
+[![Framework Badge Arduino](https://img.shields.io/badge/framework-arduino-00979C.svg)](https://arduino.cc)
 
 
 ## Features:
